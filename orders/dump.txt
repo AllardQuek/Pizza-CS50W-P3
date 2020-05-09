@@ -1,0 +1,123 @@
+def add_to_cart(request):
+    if "items" not in request.session:
+        request.session["items"] = []
+
+    if request.method == "POST":
+        request.session["items"] = []
+        itemlist = list(request.POST.items())
+        for item in itemlist[1:]:
+            qty = item[1]
+            if not qty:
+                continue
+            
+            pid = int(item[0])
+            num = int(qty)
+            p = Pizza.objects.get(pk=pid)
+            
+            item = f"{qty}x {p}"
+            cartitem = CartItem(qty=qty, item=item)
+            request.session["items"].append(item)
+        
+        # Add order to user's orders table (userid, order)
+
+
+    return render(request, "orders/cart.html", {
+        # Query for a list of all the user's cart items
+        "items": request.session["items"]
+    })
+
+
+for item in itemlist[1:]:
+            qty = item[1]
+            if not qty:
+                continue
+            
+            pid = int(item[0])
+            qty = int(qty)
+            p = Pizza.objects.get(pk=pid)
+            
+            Add order to user's cart table 
+            cartitem = CartItem(qty=qty, item=p, user=request.user)
+            cartitem.save()
+
+
+itemlist = list(request.POST.items())
+        p_id = itemlist[1][1]     # From the 2nd item get the 2nd value which is the pizza's id
+        p = Pizza.objects.get(pk=p_id)
+
+        # Evaluate user's complete item including any toppings
+        # https://stackoverflow.com/questions/1630320/what-is-the-pythonic-way-to-detect-the-last-element-in-a-for-loop
+        if len(itemlist) > 2:
+            topping_list = itemlist[2][1]
+            print(itemlist)
+            toppings = ''
+            first = True
+            for topping in topping_list:
+                if first:
+                    toppings += topping
+                    first = False
+                else:
+                    toppings += ', ' + topping
+                
+
+            full_item = f"{p} with toppings {toppings}"
+        elif p.p_type == "Special":
+            full_item = f"{p} with Black Olives, Fresh Garlic, Zucchini"
+        else:
+            full_item = f"{p}"
+
+
+# Evaluate user's complete item including any toppings
+        # https://stackoverflow.com/questions/1630320/what-is-the-pythonic-way-to-detect-the-last-element-in-a-for-loop
+        # print(str(p.p_type), type(p.p_type))
+        if "Toppings" in str(p.p_type):
+            # https://stackoverflow.com/questions/36282016/cant-extract-list-from-querydict-in-django
+            topping_list = request.POST.getlist('topping')
+            print(topping_list)
+            toppings = ''
+            first = True
+            for topping in topping_list:
+                if first:
+                    toppings += topping
+                    first = False
+                else:
+                    toppings += ', ' + topping
+            full_item = f"{p} with toppings {toppings}"
+        elif p.p_type == "Special":
+            full_item = f"{p} with Black Olives, Fresh Garlic, Zucchini"
+        else:
+            full_item = f"{p}"
+
+        cartitem = CartItem(item=full_item, user=request.user)
+        cartitem.save()
+
+
+
+function maxBoxes(this) {
+    let limit = parseInt(selectedPizza.value[0])
+    console.log(limit);
+    console.log(($('input[type=checkbox]:checked').length > limit))
+    if ($('input[type=checkbox]:checked').length > limit) {
+        // console.log('checked:', this.checked);
+        if (this.checked === true) {
+            this.checked = false;
+        }
+        $(this).prop('checked', false);
+        console.log('checked:', this.checked);
+        console.log($('input[type=checkbox]:checked').length);
+        this.checked = false;
+        alert("allowed");
+    }
+};
+
+
+checkboxes = document.getElementsByClassName('top');
+checkboxes.forEach(element => console.log(element));
+checkboxes.foreach()
+
+
+$('input.top:checkbox').on('change', function(evt) {
+    if($(this).siblings(':checked').length >= limit) {
+        this.checked = false;
+    }
+});

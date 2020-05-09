@@ -1,0 +1,266 @@
+{% extends "users/layout.html" %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block main %}
+<h1>Welcome {{ user }}</h1>
+
+<!-- PIZZAS SECTION -->
+<table width="100%" class="table table-hover">
+    <tbody>
+        <tr class="table-info">
+            <th colspan="4"><a name="pizza">Pizzas</a></th>
+        </tr>
+        <tr class="table-secondary">
+            <td>Name</td>
+            <td>Type</td>
+            <td>Size</td>
+            <td>Price</td>
+        </tr>	      
+        {% for pizza in pizzas %}
+        <tr>
+            <td width="15%">{{ pizza.name }}</td>
+            <td width="50%">{{ pizza.p_type }}</td>
+            <td width="15%">{{ pizza.size }}</td>
+            <td width="15%">${{ pizza.price }}</td>
+        </tr>	   
+        {% endfor %}  
+    </tbody>
+</table>
+
+<p class="text-info">*A Special pizza consists of the toppings Black Olives, Fresh Garlic and Zucchini.*</p>
+    
+<form action="{% url 'addtocart' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="selectedpizza">Choose a pizza: </label>
+        <select name="pizza" class="form-control" id="selectedpizza">
+            {% for pizza in pizzas %}
+            <option value="{{ pizza.id }}" data-piztype="{{ pizza.p_type }}">{{ pizza }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <fieldset class="form-group" id="toppings">
+        <legend>Select Toppings</legend>
+        {% for topping in toppings %}
+        <div class="form-check">
+            <label class="form-check-label">
+            <input class="top form-check-input" type="checkbox" name="topping" value="{{ topping }}">
+            {{ topping }}
+            </label>
+        </div>
+        {% endfor %}
+    </fieldset>
+
+    <button type="submit" class="btn btn-success">Add to cart</button>
+</form>
+
+<br>
+<div class="internalmenunav">
+    <a href="#pizza">Pizzas</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a> 
+</div>	 
+
+
+<!-- SUBS SECTION -->
+<table width="100%" class="table table-hover">
+    <tbody>
+        <tr class="table-info">
+            <th colspan="3"><a name="subs">Subs</a></th>
+        </tr>
+        <tr class="table-secondary">
+            <td>Type</td>
+            <td>Size</td>
+            <td>Price</td>
+        </tr>	      
+        {% for s in subs %}
+        <tr>
+            <td width="15%">{{ s.sub_type }}</td>
+            <td width="15%">{{ s.size }}</td>
+            <td width="15%">${{ s.price }}</td>
+        </tr>	   
+        {% endfor %}  
+    </tbody>
+</table>
+    
+
+<form action="{% url 'addsub' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="selectedsub">Choose a sub: </label>
+        <select name="sub" class="form-control" id="selectedsub">
+            {% for s in subs %}
+            <option value="{{ s.id }}" data-subtype="{{ s.sub_type }}">{{ s }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <fieldset class="form-group">
+        <legend>Select Add-ons ($0.50 each)</legend>
+    
+        {% for add in additions %}
+        <div class="custom-control custom-checkbox subadds" data-exclude="{{ add }}">
+            <input id="{{ add }}" class="custom-control-input add-item" type="checkbox" name="addition" value="{{ add.id }}"">
+            <label class="custom-control-label" for="{{ add }}">
+            {{ add }}
+            </label>
+        </div>
+        {% endfor %}
+    </fieldset>
+    
+    <button type="submit" class="btn btn-success">Add to cart</button>
+</form>
+
+<br>
+<div class="internalmenunav">
+    <a href="#pizza">Pizzas</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a> 
+</div>	 
+
+
+<!-- PASTAS SECTION -->
+<table width="100%" class="table table-hover">
+    <tbody>
+        <tr class="table-info">
+            <th colspan="3"><a name="">Pastas</a></th>
+        </tr>
+        <tr class="table-secondary">
+            <td>Type</td>
+            <td>Price</td>
+        </tr>	      
+        {% for pasta in pastas %}
+        <tr>
+            <td width="15%">{{ pasta.pasta_type }}</td>
+            <td width="15%">${{ pasta.price }}</td>
+        </tr>	   
+        {% endfor %}  
+    </tbody>
+</table>
+    
+<form action="{% url 'addpasta' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="selectedpasta">Choose a pasta: </label>
+        <select name="pasta" class="form-control" id="selectedpasta">
+            {% for pasta in pastas %}
+            <option value="{{ pasta.id }}" data-piztype="{{ pasta.pasta_type }}">{{ pasta }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Add to cart</button>
+</form>
+
+<br>
+<div class="internalmenunav">
+    <a href="#pizza">Pizzas</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a> 
+</div>	 
+
+
+<!-- SALADS SECTION -->
+<table width="100%" class="table table-hover">
+    <tbody>
+        <tr class="table-info">
+            <th colspan="3"><a name="">Salads</a></th>
+        </tr>
+        <tr class="table-secondary">
+            <td>Type</td>
+            <td>Price</td>
+        </tr>	      
+        {% for sal in salads %}
+        <tr>
+            <td width="15%">{{ sal.salad_type }}</td>
+            <td width="15%">${{ sal.price }}</td>
+        </tr>	   
+        {% endfor %}  
+    </tbody>
+</table>
+    
+<form action="{% url 'addsalad' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="selectedsalad">Choose a salad: </label>
+        <select name="salad" class="form-control" id="selectedsalad">
+            {% for sal in salads %}
+            <option value="{{ sal.id }}" data-piztype="{{ sal.salad_type }}">{{ sal }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Add to cart</button>
+</form>
+
+<br>
+<div class="internalmenunav">
+    <a href="#pizza">Pizzas</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a> 
+</div>	 
+
+
+<!-- DINNER PLATTERS SECTION -->
+<table width="100%" class="table table-hover">
+    <tbody>
+        <tr class="table-info">
+            <th colspan="3"><a name="">Dinner Platters</a></th>
+        </tr>
+        <tr class="table-secondary">
+            <td>Type</td>
+            <td>Size</td>
+            <td>Price</td>
+        </tr>	      
+        {% for dp in dinnerplatters %}
+        <tr>
+            <td width="15%">{{ dp.plat_type }}</td>
+            <td width="15%">{{ dp.size }}</td>
+            <td width="15%">${{ dp.price }}</td>
+        </tr>	   
+        {% endfor %}  
+    </tbody>
+</table>
+    
+<form action="{% url 'addplatter' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="selectedplatter">Choose a dinner platter: </label>
+        <select name="dinnerplatter" class="form-control" id="selectedplatter">
+            {% for dp in dinnerplatters %}
+            <option value="{{ dp.id }}" data-piztype="{{ dp.plat_type }}">{{ dp }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Add to cart</button>
+</form>
+
+<br>
+<div class="internalmenunav">
+    <a href="#pizza">Pizzas</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a> 
+</div>	 
+
+
+<script src="/static/index.js"></script>
+
+
+{% endblock %}

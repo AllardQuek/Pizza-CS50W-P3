@@ -1,0 +1,23 @@
+{% extends "users/layout.html" %}
+
+{% block title %}
+All Orders
+{% endblock %}
+
+
+{% block main %}
+
+{% for user, orders in all_orders %}
+<div class="card text-white bg-dark mb-3">
+    <div class="card-header">{{ user }}</div>
+    <div class="card-body">
+        <ol>
+            {% for o in orders %}
+            <li> {{ o }} </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

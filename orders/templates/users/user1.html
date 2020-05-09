@@ -1,0 +1,51 @@
+{% extends "users/layout.html" %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block main %}
+<h1>Welcome {{ user }}</h1>
+
+
+<form action="{% url 'addtocart' %}" method="post">
+    {% csrf_token %}
+    <table width="100%" class="table table-hover">
+        <tbody>
+            <tr class="table-info">
+                <th colspan="5"><a name="pizza">Pizzas</a></th>
+            </tr>
+            <tr class="table-secondary">
+                <td>Name</td>
+                <td>Type</td>
+                <td>Size</td>
+                <td>Price</td>
+                <td>Quantity</td>
+            </tr>	      
+            {% for pizza in pizzas %}
+            <tr>
+                <td width="15%">{{ pizza.name }}</td>
+                <td width="50%">{{ pizza.p_type }}</td>
+                <td width="15%">{{ pizza.size }}</td>
+                <td width="15%">${{ pizza.price }}</td>
+                <td width="10%"><input type="number" min=0 name="{{ pizza.id }}" class="{{ pizza.p_type }}"></td>
+            </tr>	   
+            {% endfor %}  
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-success">Add to cart</button>
+</form>
+
+
+<div class="internalmenunav">
+    <a href="#pizza">Pizzas</a> |
+    <a href="#toppings">Toppings</a> |
+    <a href="#subs">Subs</a> |
+    <a href="#pasta">Pasta</a> |
+    <a href="#salad">Salad</a> |
+    <a href="#dinner">Dinner Platters</a> 
+</div>	 
+
+
+{% endblock %}
