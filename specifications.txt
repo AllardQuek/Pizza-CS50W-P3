@@ -55,3 +55,5 @@ Future Work:
 - allow admins to mark order status
 - webhook to handle post-payment (add order or send confirmation email)
 - view all orders page doesn't show specific toppings
+- restructure models; new classes for each category's orders, or consider a model to store all orders
+- design models so that orders can be deleted easily (e.g. delete all orders made by particular user)

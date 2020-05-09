@@ -11,7 +11,7 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(PizzaName)
 admin.site.register(Size)
 admin.site.register(PizzaType)
-admin.site.register(Topping)
+admin.site.register(Topping, OrderAdmin)
 admin.site.register(Addition, OrderAdmin)
 admin.site.register(Pizza, OrderAdmin)
 admin.site.register(Sub, OrderAdmin)

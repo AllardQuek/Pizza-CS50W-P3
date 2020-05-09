@@ -48,7 +48,7 @@ Homepage
         {% for topping in toppings %}
         <div class="form-check">
             <label class="form-check-label">
-            <input class="top form-check-input" type="checkbox" name="topping" value="{{ topping }}">
+            <input class="top form-check-input" type="checkbox" name="topping" value="{{ topping.id }}">
             {{ topping }}
             </label>
         </div>

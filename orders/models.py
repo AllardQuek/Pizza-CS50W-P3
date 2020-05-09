@@ -17,6 +17,7 @@ class Size(models.Model):
 
 class Topping(models.Model):
     topping = models.CharField(max_length=64)
+    user = models.ManyToManyField(User, blank=True, related_name="topping_orders")
 
     def __str__(self):
         return f"{self.topping}"
@@ -86,14 +87,6 @@ class CartItem(models.Model):
     item_type = models.CharField(max_length=32)
     item_id = models.IntegerField(0)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    toppings = models.ManyToManyField(Topping, blank=True, related_name="topitems")
-    additions = models.ManyToManyField(Addition, blank=True, related_name="addnitems")
 
     def __str__(self):
         return f"{self.item}"
-
-
-# class PizzaOrder(models.Model):
-#     item = models.ForeignKey(Pizza, on_delete=models.CASCADE, related_name="buyer")
-#     user = models.ManyToManyField(User, blank=True, related_name="piz_orders")
-#     toppings = models.ManyToManyField(Topping, blank=True, related_name="top_orders")

@@ -68,7 +68,7 @@ def cart(request):
     stripe.api_key = os.getenv("SECRET_STRIPE_KEY")
 
     # Query for a list of all the user's cart items
-    all_items = CartItem.objects.filter(user=request.user).exclude(item_type="Addition")
+    all_items = CartItem.objects.filter(user=request.user).exclude(item_type__in=["Addition", "Topping"])
     
     # Calculate total cost of cart items
     if all_items:
@@ -104,18 +104,23 @@ def add_to_cart(request):
         # Evaluate user's complete item including any toppings
         # https://stackoverflow.com/questions/1630320/what-is-the-pythonic-way-to-detect-the-last-element-in-a-for-loop
         # print(str(p.p_type), type(p.p_type))
-        if "Toppings" in str(p.p_type):
+        if "Topping" in str(p.p_type):
             # https://stackoverflow.com/questions/36282016/cant-extract-list-from-querydict-in-django
             topping_list = request.POST.getlist('topping')
             print(topping_list)
             toppings = ''
             first = True
-            for topping in topping_list:
+
+            for i in topping_list:
+                top = Topping.objects.get(pk=i)
+                top_cartitem = CartItem(item=top, user=request.user, item_type="Topping", item_id=top.id, price=0)
+                top_cartitem.save()
+
                 if first:
-                    toppings += topping
+                    toppings += top.topping
                     first = False
                 else:
-                    toppings += ', ' + topping
+                    toppings += ', ' + top.topping
             full_item = f"{p} with toppings {toppings}"
         elif p.p_type == "Special":
             full_item = f"{p} with Black Olives, Fresh Garlic, Zucchini"
@@ -207,11 +212,11 @@ def order(request):
     cart_items = CartItem.objects.filter(user=request.user)
 
     # Dict to map item type to matching Class
-    d = {"Pizza": Pizza, "Sub": Sub, "Pasta": Pasta, "Salad": Salad, "DinnerPlatter": DinnerPlatter, "Addition": Addition}
+    d = {"Pizza": Pizza, "Sub": Sub, "Pasta": Pasta, "Salad": Salad, "DinnerPlatter": DinnerPlatter, "Addition": Addition, "Topping": Topping}
     for item in cart_items:
         i_type = item.item_type
         i_id = item.item_id
-        # new_order = PizzaOrder(item=obj, user=request.user, toppings=)
+
         # Query for the particular item from the relevant table
         # Add the user's order for that item
         obj = d[i_type].objects.get(pk=i_id)
@@ -238,12 +243,13 @@ def view_orders(request):
 
             if u.pizza_orders.all(): 
                 [user_orders.append(o) for o in u.pizza_orders.all()]
+                if u.topping_orders.all():
+                    [user_orders.append(o) for o in u.topping_orders.all()]
 
             if u.sub_orders.all(): 
                 [user_orders.append(o) for o in u.sub_orders.all()]
-
-            if u.addn_orders.all():
-                [user_orders.append(o) for o in u.addn_orders.all()]
+                if u.addn_orders.all():
+                    [user_orders.append(o) for o in u.addn_orders.all()]
 
             if u.pasta_orders.all(): 
                 [user_orders.append(o) for o in u.pasta_orders.all()]
