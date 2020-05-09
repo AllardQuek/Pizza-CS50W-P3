@@ -30,17 +30,17 @@ selectedPizza.onchange = (event) => {
 };
 
 // Set max limit for number of checked checkboxes depending on number of toppings selected
-$('input[class=top]').on('change', function (event) {
+$('input.top:checkbox').on('change', function (event) {
     let piztype = selectedPizza.options[selectedPizza.selectedIndex].dataset.piztype
     let limit = parseInt(piztype[0])
     console.log(limit);
-    console.log('now', $('input[type=checkbox]:checked').length)
-    if ($('input[type=checkbox]:checked').length > limit) {
+    console.log('now', $('input.top:checkbox:checked').length)
+    if ($('input.top:checkbox:checked').length > limit) {
         console.log("UNDO");
         // this.checked = false;
         $(this).prop('checked', false);
         console.log('checked:', this.checked);
-        console.log($('input[type=checkbox]:checked').length);
+        console.log($('input.top:checkbox:checked').length);
         // alert("allowed");
     }
 });
@@ -78,10 +78,12 @@ selectedSub.onchange = (event) => {
 };
 
 // https://stackoverflow.com/questions/3010840/loop-through-an-array-in-javascript
-function toggleEachBox(boxInputs, addBoxes, boolean) {
-    for (let i=0; i<boxInputs.length; i++) {
-        if (boxInputs[i].dataset.exclude !== "Extra Cheese") {
+function toggleEachBox(additions, addBoxes, boolean) {
+    for (let i=0; i<additions.length; i++) {
+        console.log(additions[i].dataset.exclude);
+        if (!(additions[i].dataset.exclude.includes("Extra Cheese"))) {
             addBoxes[i].disabled = boolean;
         }
+        
     }
 }

@@ -232,35 +232,37 @@ def order(request):
         "success": True
     })
 
+def collate_orders(u):
+    user_orders = []
+
+    if u.pizza_orders.all(): 
+        [user_orders.append(o) for o in u.pizza_orders.all()]
+        if u.topping_orders.all():
+            [user_orders.append(o) for o in u.topping_orders.all()]
+
+    if u.sub_orders.all(): 
+        [user_orders.append(o) for o in u.sub_orders.all()]
+        if u.addn_orders.all():
+            [user_orders.append(o) for o in u.addn_orders.all()]
+
+    if u.pasta_orders.all(): 
+        [user_orders.append(o) for o in u.pasta_orders.all()]
+
+    if u.salad_orders.all(): 
+        [user_orders.append(o) for o in u.salad_orders.all()]
+
+    if u.plat_orders.all(): 
+        [user_orders.append(o) for o in u.plat_orders.all()]
+
+    return user_orders
 
 def view_orders(request):
     if request.user.is_superuser:
         all_users = User.objects.all()
         all_orders = {}
-
-        for u in all_users:
-            user_orders = []
-
-            if u.pizza_orders.all(): 
-                [user_orders.append(o) for o in u.pizza_orders.all()]
-                if u.topping_orders.all():
-                    [user_orders.append(o) for o in u.topping_orders.all()]
-
-            if u.sub_orders.all(): 
-                [user_orders.append(o) for o in u.sub_orders.all()]
-                if u.addn_orders.all():
-                    [user_orders.append(o) for o in u.addn_orders.all()]
-
-            if u.pasta_orders.all(): 
-                [user_orders.append(o) for o in u.pasta_orders.all()]
-
-            if u.salad_orders.all(): 
-                [user_orders.append(o) for o in u.salad_orders.all()]
-
-            if u.plat_orders.all(): 
-                [user_orders.append(o) for o in u.plat_orders.all()]
-
-            all_orders[u] = user_orders
+        for user in all_users:
+            user_orders = collate_orders(user)
+            all_orders[user] = user_orders
 
         # Query for all items' orders
         return render(request, "orders/allorders.html", {

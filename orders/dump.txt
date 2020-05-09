@@ -165,3 +165,19 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.item}"
+
+
+$('input[type=checkbox]').on('change', function (event) {
+    let piztype = selectedPizza.options[selectedPizza.selectedIndex].dataset.piztype
+    let limit = parseInt(piztype[0])
+    console.log(limit);
+    console.log('now', $('input[type=checkbox]:checked').length)
+    if ($('input[type=checkbox]:checked').length > limit) {
+        console.log("UNDO");
+        // this.checked = false;
+        $(this).prop('checked', false);
+        console.log('checked:', this.checked);
+        console.log($('input[type=checkbox]:checked').length);
+        // alert("allowed");
+    }
+});

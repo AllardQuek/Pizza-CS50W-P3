@@ -46,9 +46,9 @@ Homepage
     <fieldset class="form-group" id="toppings">
         <legend>Select Toppings</legend>
         {% for topping in toppings %}
-        <div class="form-check">
-            <label class="form-check-label">
-            <input class="top form-check-input" type="checkbox" name="topping" value="{{ topping.id }}">
+        <div class="custom-control custom-checkbox">
+            <input class="top custom-control-input" type="checkbox" name="topping" value="{{ topping.id }}" id="{{ topping.id }}-{{ topping }}">
+            <label class="custom-control-label" for="{{ topping.id }}-{{ topping }}">
             {{ topping }}
             </label>
         </div>
@@ -61,7 +61,6 @@ Homepage
 <br>
 <div class="internalmenunav">
     <a href="#pizza">Pizzas</a> |
-    <a href="#toppings">Toppings</a> |
     <a href="#subs">Subs</a> |
     <a href="#pasta">Pasta</a> |
     <a href="#salad">Salad</a> |
@@ -107,8 +106,8 @@ Homepage
     
         {% for add in additions %}
         <div class="custom-control custom-checkbox subadds" data-exclude="{{ add }}">
-            <input id="{{ add }}" class="custom-control-input add-item" type="checkbox" name="addition" value="{{ add.id }}"">
-            <label class="custom-control-label" for="{{ add }}">
+            <input class="custom-control-input add-item" type="checkbox" name="addition" value="{{ add.id }}" id="{{ add.id }}-{{ add }}">
+            <label class="custom-control-label" for="{{ add.id }}-{{ add }}">
             {{ add }}
             </label>
         </div>
@@ -121,7 +120,6 @@ Homepage
 <br>
 <div class="internalmenunav">
     <a href="#pizza">Pizzas</a> |
-    <a href="#toppings">Toppings</a> |
     <a href="#subs">Subs</a> |
     <a href="#pasta">Pasta</a> |
     <a href="#salad">Salad</a> |
@@ -133,7 +131,7 @@ Homepage
 <table width="100%" class="table table-hover">
     <tbody>
         <tr class="table-info">
-            <th colspan="3"><a name="">Pastas</a></th>
+            <th colspan="3"><a name="pasta">Pastas</a></th>
         </tr>
         <tr class="table-secondary">
             <td>Type</td>
@@ -164,7 +162,6 @@ Homepage
 <br>
 <div class="internalmenunav">
     <a href="#pizza">Pizzas</a> |
-    <a href="#toppings">Toppings</a> |
     <a href="#subs">Subs</a> |
     <a href="#pasta">Pasta</a> |
     <a href="#salad">Salad</a> |
@@ -176,7 +173,7 @@ Homepage
 <table width="100%" class="table table-hover">
     <tbody>
         <tr class="table-info">
-            <th colspan="3"><a name="">Salads</a></th>
+            <th colspan="3"><a name="salad">Salads</a></th>
         </tr>
         <tr class="table-secondary">
             <td>Type</td>
@@ -207,7 +204,6 @@ Homepage
 <br>
 <div class="internalmenunav">
     <a href="#pizza">Pizzas</a> |
-    <a href="#toppings">Toppings</a> |
     <a href="#subs">Subs</a> |
     <a href="#pasta">Pasta</a> |
     <a href="#salad">Salad</a> |
@@ -219,7 +215,7 @@ Homepage
 <table width="100%" class="table table-hover">
     <tbody>
         <tr class="table-info">
-            <th colspan="3"><a name="">Dinner Platters</a></th>
+            <th colspan="3"><a name="dinner">Dinner Platters</a></th>
         </tr>
         <tr class="table-secondary">
             <td>Type</td>
@@ -252,7 +248,6 @@ Homepage
 <br>
 <div class="internalmenunav">
     <a href="#pizza">Pizzas</a> |
-    <a href="#toppings">Toppings</a> |
     <a href="#subs">Subs</a> |
     <a href="#pasta">Pasta</a> |
     <a href="#salad">Salad</a> |

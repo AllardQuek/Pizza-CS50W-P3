@@ -57,3 +57,6 @@ Future Work:
 - view all orders page doesn't show specific toppings
 - restructure models; new classes for each category's orders, or consider a model to store all orders
 - design models so that orders can be deleted easily (e.g. delete all orders made by particular user)
+- refactor and simplify code
+- simpler representation of menu but which is dynamic
+- before disabling checkboxes, reset them to be unchecked first 
