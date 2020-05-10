@@ -1,13 +1,15 @@
 {% extends "users/layout.html" %}
 
+{% load static %}
+
 {% block title %}
 My Cart
 {% endblock %}
 
 {% block script %}
 <script src="https://js.stripe.com/v3/"></script>
-<script src="/static/client.js" defer></script>
-<link href="/static/cart.css" rel="stylesheet">
+<script src="{% static 'orders/client.js' %}" defer></script>
+<link href="{% static 'orders/cart.css' %}" rel="stylesheet">
 {% endblock %}
 
 

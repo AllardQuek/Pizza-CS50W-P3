@@ -1,11 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link href="/static/styles.css" rel="stylesheet">
-        <link rel="icon" href="/static/pizza.png">
+        <link href="{% static 'orders/styles.css' %}" rel="stylesheet">
+        <link rel="icon" href="{% static 'orders/pizza.png' %}">
         <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css" rel="stylesheet" integrity="sha384-bzjLLgZOhgXbSvSc5A9LWWo/mSIYf7U7nFbmYIB2Lgmuiw3vKGJuu+abKoaTx4W6" crossorigin="anonymous">
 
         <!-- Remember to add jquery script to be able to use it in your js files! -->

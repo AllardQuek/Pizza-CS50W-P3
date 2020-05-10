@@ -1,5 +1,7 @@
 {% extends "users/layout.html" %}
 
+{% load static %}
+
 {% block title %}
 Homepage
 {% endblock %}
@@ -255,7 +257,7 @@ Homepage
 </div>	 
 
 
-<script src="/static/index.js"></script>
+<script src="{% static 'orders/index.js' %}"></script>
 
 
 {% endblock %}
